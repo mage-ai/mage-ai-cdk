@@ -36,7 +36,7 @@ export class MageAiStack extends cdk.Stack {
       vpc: vpc,
       encrypted: true,
       performanceMode: efs.PerformanceMode.GENERAL_PURPOSE,
-      throughputMode: efs.ThroughputMode.BURSTING
+      throughputMode: efs.ThroughputMode.ELASTIC
     });
 
     const volumeConfig = {
@@ -83,7 +83,7 @@ export class MageAiStack extends cdk.Stack {
       path: '/api/status',
     });
 
-    albFargateService.service.connections.allowFrom(fileSystem, ec2.Port.tcp(6789));
-    albFargateService.service.connections.allowTo(fileSystem, ec2.Port.tcp(6789));
+    albFargateService.service.connections.allowFrom(fileSystem, ec2.Port.tcp(2049));
+    albFargateService.service.connections.allowTo(fileSystem, ec2.Port.tcp(2049));
   }
 }
